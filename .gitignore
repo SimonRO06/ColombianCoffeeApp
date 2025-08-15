@@ -1,0 +1,42 @@
+## Archivos y directorios de Visual Studio
+.vs/
+.vscode/
+.idea/
+# Directorio de compilación de Visual Studio
+bin/
+obj/
+
+## Archivos de usuario de Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Archivos generados por Visual Studio para control de versiones de código fuente
+*.vspscc
+*.vssscc
+
+## Archivos de dependencias y paquetes de NuGet
+packages/
+
+# Archivos de configuración de NuGet
+.nuget/
+
+# Dependencias de los paquetes
+*.nupkg
+*.snupkg
+
+## Archivos de configuración específicos de .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Archivos binarios de compilación y dependencias de terceros
+*.dll
+*.exe
+*.pdb
+*.app
+*.so
+*.dylib
+*.swp
+
