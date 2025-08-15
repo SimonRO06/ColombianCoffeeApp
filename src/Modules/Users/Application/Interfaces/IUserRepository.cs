@@ -8,10 +8,10 @@ namespace ColombianCoffeeApp.src.Modules.Users.Application.Interfaces
 {
     public interface IUserRepository
     {
-        Task<Usuario?> ObtenerPorCredencialesAsync(string nombreUsuario, string contrasena);
-        Task CrearAsync(Usuario usuario);
-        Task<Usuario?> ObtenerPorNombreAsync(string nombreUsuario);
-        Task<List<Usuario>> ListarTodosAsync();
+        Task<User?> ObtenerPorCredencialesAsync(string nombreUsuario, string contrasena);
+        Task CrearAsync(User usuario);
+        Task<User?> ObtenerPorNombreAsync(string nombreUsuario);
+        Task<List<User>> ListarTodosAsync();
         Task<bool> EliminarAsync(int id);
     }
 }

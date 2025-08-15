@@ -18,25 +18,25 @@ namespace ColombianCoffeeApp.src.Modules.Users.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Usuario?> ObtenerPorCredencialesAsync(string nombreUsuario, string contrasena)
+        public async Task<User?> ObtenerPorCredencialesAsync(string nombreUsuario, string contrasena)
         {
             return await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario && u.Contrasena == contrasena);
         }
 
-        public async Task CrearAsync(Usuario usuario)
+        public async Task CrearAsync(User usuario)
         {
-            _context.Usuarios.Add(usuario);
+            // _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Usuario?> ObtenerPorNombreAsync(string nombreUsuario)
+        public async Task<User?> ObtenerPorNombreAsync(string nombreUsuario)
         {
             return await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
         }
 
-        public async Task<List<Usuario>> ListarTodosAsync()
+        public async Task<List<User>> ListarTodosAsync()
         {
             return await _context.Usuarios.ToListAsync();
         }
