@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ColombianCoffeeApp.src.Modules.Users.Domain.Entities;
+using ColombianCoffeeApp.src.Modules.Varieties.Domain.Entities;
 
 namespace ColombianCoffeeApp.src.Shared.Context
 {
@@ -13,12 +14,12 @@ namespace ColombianCoffeeApp.src.Shared.Context
         {
         }
 
-        public DbSet<Usuario> Usuarios => Set<Usuario>();
-        // public DbSet<VariedadCafe> Variedades => Set<VariedadCafe>();
+        public DbSet<User> Users => Set<User>();
+        public DbSet<CoffeeVariety> Variedades => Set<CoffeeVariety>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Usuario>().ToTable("usuario");
+            modelBuilder.Entity<User>().ToTable("usuario");
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         }
     }
