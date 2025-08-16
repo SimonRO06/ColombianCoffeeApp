@@ -26,7 +26,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.Infrastructure.Repositories
 
         public async Task CrearAsync(User usuario)
         {
-            // _context.Usuarios.Add(usuario);
+            _context.Users.Add(usuario);
             await _context.SaveChangesAsync();
         }
 
