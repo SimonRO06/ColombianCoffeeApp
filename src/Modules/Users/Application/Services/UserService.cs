@@ -17,7 +17,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.Application.Services
             _repo = repo;
         }
 
-        public async Task<Usuario?> LoginAsync(string nombreUsuario, string contrasena)
+        public async Task<User?> LoginAsync(string nombreUsuario, string contrasena)
         {
             return await _repo.ObtenerPorCredencialesAsync(nombreUsuario, contrasena);
         }
@@ -31,7 +31,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.Application.Services
                 return;
             }
 
-            var admin = new Usuario
+            var admin = new User
             {
                 NombreUsuario = nombreUsuario,
                 Contrasena = contrasena,
@@ -60,7 +60,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.Application.Services
                 rol = RolUsuario.Usuario;
             }
 
-            var usuario = new Usuario
+            var usuario = new User
             {
                 NombreUsuario = nombreUsuario,
                 Contrasena = contrasena,
@@ -71,7 +71,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.Application.Services
             Console.WriteLine("✅ Usuario creado correctamente.");
         }
 
-        public async Task<IEnumerable<Usuario>> ObtenerTodosAsync()
+        public async Task<IEnumerable<User>> ObtenerTodosAsync()
         {
             return await _repo.ListarTodosAsync();
         }
@@ -81,7 +81,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.Application.Services
             return await _repo.EliminarAsync(id);
         }
 
-        public async Task<Usuario?> ObtenerPorNombreAsync(string nombreUsuario)
+        public async Task<User?> ObtenerPorNombreAsync(string nombreUsuario)
         {
             return await _repo.ObtenerPorNombreAsync(nombreUsuario);
         }

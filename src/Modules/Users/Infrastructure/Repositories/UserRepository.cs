@@ -20,7 +20,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.Infrastructure.Repositories
 
         public async Task<User?> ObtenerPorCredencialesAsync(string nombreUsuario, string contrasena)
         {
-            return await _context.Usuarios
+            return await _context.Users
                 .FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario && u.Contrasena == contrasena);
         }
 
@@ -32,21 +32,21 @@ namespace ColombianCoffeeApp.src.Modules.Users.Infrastructure.Repositories
 
         public async Task<User?> ObtenerPorNombreAsync(string nombreUsuario)
         {
-            return await _context.Usuarios
+            return await _context.Users
                 .FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
         }
 
         public async Task<List<User>> ListarTodosAsync()
         {
-            return await _context.Usuarios.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
         public async Task<bool> EliminarAsync(int id)
         {
-            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
+            var usuario = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (usuario != null)
             {
-                _context.Usuarios.Remove(usuario);
+                _context.Users.Remove(usuario);
                 await _context.SaveChangesAsync();
                 return true;
             }

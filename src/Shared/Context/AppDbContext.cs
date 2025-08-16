@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ColombianCoffeeApp.src.Modules.Users.Domain.Entities;
+using ColombianCoffeeApp.src.Modules.Varieties.Domain.Entities;
 
 namespace ColombianCoffeeApp.src.Shared.Context
 {
