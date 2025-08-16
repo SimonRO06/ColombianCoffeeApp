@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ColombianCoffeeApp.src.Modules.Users.Domain.Entities;
 using ColombianCoffeeApp.src.Modules.Users.UI;
 using ColombianCoffeeApp.src.Modules.Varieties.UI;
 using ColombianCoffeeApp.src.Services;
@@ -38,7 +39,7 @@ namespace ColombianCoffeeApp.src.UI
                         new VarietyMenu().Mostrar();
                         break;
                     case "2":
-                        await new AdminUserMenu().MostrarAsync();
+                        await new UserMenu().Mostrar();
                         break;
                     case "3":
                         using (var db = DbContextFactory.Create())
