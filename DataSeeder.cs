@@ -12,7 +12,7 @@ namespace ColombianCoffeeApp
     {
         public static void Seed(AppDbContext context)
         {
-            if (!context.Variedades.Any())
+            if (!context.Variedades.Any()) // Verifica si ya existen datos en la tabla Variedades
             {
                 var variedades = new[]
                 {
@@ -133,8 +133,8 @@ namespace ColombianCoffeeApp
                     }
                 };
 
-                context.Variedades.AddRange(variedades);
-                context.SaveChanges();
+                context.Variedades.AddRange(variedades); // Agrega las variedades al contexto
+                context.SaveChanges(); // Guarda los cambios en la base de datos
                 Console.WriteLine("✅ Datos iniciales insertados en la base de datos.");
             }
             else

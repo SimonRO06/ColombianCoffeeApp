@@ -9,11 +9,11 @@ namespace ColombianCoffeeApp.src.UI
 {
     public class MainMenu : IMenu
     {
-         private readonly IUserService _usuarioService;
+         private readonly IUserService _usuarioService; // Servicio de usuarios inyectado
 
-        public MainMenu(IUserService usuarioService)
+        public MainMenu(IUserService usuarioService) // Constructor que recibe el servicio de usuarios
         {
-            _usuarioService = usuarioService;
+            _usuarioService = usuarioService; // Inyecta el servicio de usuarios
         }
 
         public async Task MostrarAsync()
@@ -65,7 +65,7 @@ namespace ColombianCoffeeApp.src.UI
             Console.Write("Contraseña: ");
             string contrasena = Console.ReadLine() ?? "";
 
-            var result = await _usuarioService.LoginAsync(usuario, contrasena);
+            var result = await _usuarioService.LoginAsync(usuario, contrasena); // Llama al servicio de usuarios para autenticar
 
             if (result == null)
             {
@@ -76,9 +76,9 @@ namespace ColombianCoffeeApp.src.UI
 
             IMenu menuRol = result.Rol == RolUsuario.Administrador
                 ? new AdminMenu()
-                : new AdminUserMenu();
+                : new AdminUserMenu(); // Selecciona el menú según el rol del usuario autenticado
 
-            await menuRol.MostrarAsync();
+            await menuRol.MostrarAsync(); // Muestra el menú correspondiente según el rol del usuario autenticado
         }
 
         private async Task CrearCuentaAsync()
@@ -92,7 +92,7 @@ namespace ColombianCoffeeApp.src.UI
             Console.Write("Rol (Administrador (1)/ Usuario (2)): ");
             string rol = Console.ReadLine() ?? "";
 
-            await _usuarioService.CrearUsuarioAsync(usuario, contrasena, rol);
+            await _usuarioService.CrearUsuarioAsync(usuario, contrasena, rol); // Llama al servicio de usuarios para crear una nueva cuenta
             Console.Write("✅ Usuario creado. Inicie sesión para continuar.");
             Console.ReadKey();
         }

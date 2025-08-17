@@ -10,15 +10,16 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Application.Services
 {
     public class VarietyService : IVarietyService
     {
-        private readonly IVarietyRepository _repositorio;
+        private readonly IVarietyRepository _repositorio; // Repositorio para acceder a las variedades de café
 
         public VarietyService(IVarietyRepository repositorio)
         {
-            _repositorio = repositorio;
+            _repositorio = repositorio; // Inyecta el repositorio de variedades
         }
 
         public void CrearVariedad(CoffeeVariety variedad)
         {
+            // Valida los campos obligatorios de la variedad de café
             if (string.IsNullOrWhiteSpace(variedad.NombreComun))
                 throw new ArgumentException("El nombre común es obligatorio.");
             if (string.IsNullOrWhiteSpace(variedad.NombreCientifico))
@@ -60,18 +61,18 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Application.Services
             if (!Enum.IsDefined(typeof(NematodosVariedad), variedad.ResistenciaNematodos))
                 throw new ArgumentException("Resistencia a nematodos inválida.");
 
-            _repositorio.Agregar(variedad);
+            _repositorio.Agregar(variedad); // Agrega la nueva variedad al repositorio
         }
 
 
         public List<CoffeeVariety> ObtenerTodas()
         {
-            return _repositorio.ObtenerTodas();
+            return _repositorio.ObtenerTodas(); // Obtiene todas las variedades de café del repositorio
         }
 
         public CoffeeVariety? ObtenerPorId(int id)
         {
-            return _repositorio.ObtenerPorId(id);
+            return _repositorio.ObtenerPorId(id); // Obtiene una variedad de café por su ID del repositorio
         }
 
         public void ActualizarVariedad(CoffeeVariety variedad)
@@ -79,7 +80,7 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Application.Services
             if (variedad.Id <= 0)
                 throw new ArgumentException("ID inválido para actualizar");
 
-            _repositorio.Actualizar(variedad);
+            _repositorio.Actualizar(variedad); // Actualiza una variedad de café existente en el repositorio
         }
 
         public bool EliminarVariedad(int id)
@@ -87,12 +88,12 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Application.Services
             if (id <= 0)
                 throw new ArgumentException("ID inválido para eliminar");
 
-            return _repositorio.Eliminar(id);
+            return _repositorio.Eliminar(id); // Elimina una variedad de café por su ID del repositorio
         }
 
-        public List<CoffeeVariety> FiltrarPorAtributo(string atributo, string valor)
+        public List<CoffeeVariety> FiltrarPorAtributo(string atributo, string valor) // Filtra las variedades de café por un atributo específico y su valor
         {
-            if (string.IsNullOrWhiteSpace(atributo) || string.IsNullOrWhiteSpace(valor))
+            if (string.IsNullOrWhiteSpace(atributo) || string.IsNullOrWhiteSpace(valor)) // Verifica que el atributo y el valor no sean nulos o vacíos
                 throw new ArgumentException("El atributo y el valor no pueden estar vacíos");
 
             switch (atributo.Trim().ToLower())
@@ -112,34 +113,34 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Application.Services
                 case "resistencianematodos":
                     return _repositorio.FiltrarVariedades(resistenciaTipo: "nematodos", resistenciaValor: valor);
                 default:
-                    return new List<CoffeeVariety>();
+                    return new List<CoffeeVariety>(); // Retorna una lista vacía si el atributo no es válido
             }
         }
 
-        public IEnumerable<CoffeeVariety> FiltrarPorAtributos(List<(string atributo, string valor)> filtros)
+        public IEnumerable<CoffeeVariety> FiltrarPorAtributos(List<(string atributo, string valor)> filtros) // Filtra las variedades de café según una lista de atributos y valores
         {
             var lista = _repositorio.ObtenerTodas();
 
             foreach (var (atributo, valor) in filtros)
             {
-                var prop = typeof(CoffeeVariety).GetProperty(atributo);
+                var prop = typeof(CoffeeVariety).GetProperty(atributo); // Obtiene la propiedad del objeto CoffeeVariety según el nombre del atributo
                 if (prop == null)
-                    throw new ArgumentException($"El atributo '{atributo}' no existe.");
+                    throw new ArgumentException($"El atributo '{atributo}' no existe."); // Verifica si la propiedad existe
 
                 lista = lista
                     .Where(v => 
                         {
-                            var propValue = prop.GetValue(v);
+                            var propValue = prop.GetValue(v); // Obtiene el valor de la propiedad del objeto
                             return propValue?.ToString()?.Equals(valor, StringComparison.OrdinalIgnoreCase) == true;
                         }
                     )
-                    .ToList();
+                    .ToList(); // Filtra la lista según el valor del atributo
             }
 
             return lista;
         }
 
-        public List<CoffeeVariety> Sugerencias(string porte, string resistenciaRoya)
+        public List<CoffeeVariety> Sugerencias(string porte, string resistenciaRoya) // Obtiene sugerencias de variedades basadas en el porte y resistencia a la roya
         {
             return _repositorio.FiltrarVariedades(
                 porte: porte,

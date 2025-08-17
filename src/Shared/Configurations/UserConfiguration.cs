@@ -12,7 +12,7 @@ namespace ColombianCoffeeApp.src.Shared.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("usuario");
+            builder.ToTable("usuario"); // Configura el nombre de la tabla en la base de datos
 
             builder.HasKey(u => u.Id);
 

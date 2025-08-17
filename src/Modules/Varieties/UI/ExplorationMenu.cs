@@ -60,9 +60,9 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
         private void ListarTodas()
         {
             Console.Clear();
-            var variedades = _service.ObtenerTodas();
+            var variedades = _service.ObtenerTodas(); // Obtiene todas las variedades de café
 
-            if (!variedades.Any())
+            if (!variedades.Any()) // Verifica si hay variedades registradas
             {
                 Console.WriteLine("No hay variedades registradas.");
             }
@@ -81,12 +81,12 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
         private void VerFichaPorId()
         {
             Console.Write("\nIngrese el ID de la variedad: ");
-            if (int.TryParse(Console.ReadLine(), out int id))
+            if (int.TryParse(Console.ReadLine(), out int id)) // Intenta convertir la entrada a un entero
             {
-                var variedad = _service.ObtenerPorId(id);
-                if (variedad != null)
+                var variedad = _service.ObtenerPorId(id); // Obtiene la variedad por ID
+                if (variedad != null) // Verifica si se encontró la variedad
                 {
-                    MostrarFichaTecnica(variedad);
+                    MostrarFichaTecnica(variedad); // Muestra la ficha técnica de la variedad
                 }
                 else
                 {
@@ -113,13 +113,13 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
                 Console.Write("Ingrese el valor a buscar: ");
                 string? valor = Console.ReadLine();
 
-                if (string.IsNullOrWhiteSpace(atributo) || string.IsNullOrWhiteSpace(valor))
+                if (string.IsNullOrWhiteSpace(atributo) || string.IsNullOrWhiteSpace(valor)) 
                 {
                     Console.WriteLine("\n⚠️ El atributo y el valor no pueden estar vacíos.");
                 }
                 else
                 {
-                    filtros.Add((atributo, valor));
+                    filtros.Add((atributo, valor)); // Agrega el filtro a la lista
                 }
 
                 Console.Write("\n¿Desea agregar otro filtro? (s/n): ");
@@ -131,7 +131,7 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
             {
                 var resultados = _service.FiltrarPorAtributos(filtros);
 
-                if (!resultados.Any())
+                if (!resultados.Any()) // Verifica si se encontraron resultados
                 {
                     Console.WriteLine("❌ No se encontraron variedades con esos criterios.");
                 }

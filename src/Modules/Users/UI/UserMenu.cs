@@ -11,16 +11,16 @@ namespace ColombianCoffeeApp.src.Modules.Users.UI
 {
     public class UserMenu
     {
-        private readonly IUserService _service;
+        private readonly IUserService _service; // Servicio de usuarios inyectado
 
         public UserMenu()
         {
-            var db = DbContextFactory.Create();
-            var repo = new UserRepository(db);
-            _service = new UserService(repo);
+            var db = DbContextFactory.Create(); // Crea el contexto de la base de datos
+            var repo = new UserRepository(db); // Crea una instancia del repositorio de usuarios
+            _service = new UserService(repo); // Crea una instancia del servicio de usuarios
         }
 
-        public async Task Mostrar()
+        public async Task Mostrar() // Muestra el menú de gestión de usuarios
         {
             bool salir = false;
             while (!salir)
@@ -64,10 +64,10 @@ namespace ColombianCoffeeApp.src.Modules.Users.UI
         private async Task Listar()
         {
             Console.Clear();
-            var usuarios = await _service.ObtenerTodosAsync();
+            var usuarios = await _service.ObtenerTodosAsync(); // Obtiene todos los usuarios del servicio
 
             Console.WriteLine("\n📋 LISTA DE USUARIOS:");
-            if (!usuarios.Any())
+            if (!usuarios.Any()) // Verifica si hay usuarios registrados
             {
                 Console.WriteLine("No hay usuarios registrados.");
             }
@@ -96,7 +96,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.UI
             Console.Write("Rol (Administrador/Usuario o 1/2): ");
             var rol = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(contrasena) || string.IsNullOrWhiteSpace(rol))
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(contrasena) || string.IsNullOrWhiteSpace(rol)) // Verifica que los campos no estén vacíos
             {
                 Console.WriteLine("❌ Todos los campos son obligatorios. Intente de nuevo.");
             }
@@ -104,7 +104,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.UI
             {
                 try
                 {
-                    await _service.CrearUsuarioAsync(nombre, contrasena, rol);
+                    await _service.CrearUsuarioAsync(nombre, contrasena, rol); // Llama al servicio para crear un nuevo usuario
                     Console.WriteLine("\n✅ Usuario creado.");
                 }
                 catch (Exception ex)
@@ -124,7 +124,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.UI
             Console.Write("Ingrese el ID del usuario a eliminar: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                var ok = await _service.EliminarAsync(id);
+                var ok = await _service.EliminarAsync(id); // Llama al servicio para eliminar el usuario por ID
                 Console.WriteLine(ok ? "\n✅ Usuario eliminado." : "\n❌ No se encontró el usuario.");
             }
             else

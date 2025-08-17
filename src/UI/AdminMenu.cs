@@ -44,9 +44,9 @@ namespace ColombianCoffeeApp.src.UI
                     case "3":
                         using (var db = DbContextFactory.Create())
                         {
-                            var variedades = db.Variedades.ToList();
+                            var variedades = db.Variedades.ToList(); // Obtiene las variedades de café
                             var pdfService = new PdfService();
-                            pdfService.GenerarCatalogo(variedades, "catalogo.pdf");
+                            pdfService.GenerarCatalogo(variedades, "catalogo.pdf"); // Genera el catálogo PDF
                             Console.ReadKey();
                         }
                         break;

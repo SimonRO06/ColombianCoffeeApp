@@ -21,10 +21,10 @@ namespace ColombianCoffeeApp.src.Services
 {
     public class PdfService
     {
-        Color grisClaro = new DeviceRgb(230, 230, 230);
+        Color grisClaro = new DeviceRgb(230, 230, 230); // Color gris claro para el fondo de las celdas de la tabla
         public void GenerarCatalogo(List<CoffeeVariety> variedades, string rutaArchivo)
         {
-            if (variedades == null || variedades.Count == 0)
+            if (variedades == null || variedades.Count == 0) // Verifica si la lista está vacía o nula
             {
                 Console.WriteLine("⚠ No hay variedades para generar el catálogo.");
                 return;
@@ -32,12 +32,12 @@ namespace ColombianCoffeeApp.src.Services
 
             Console.WriteLine("\n📋 Variedades disponibles:");
             foreach (var v in variedades)
-                Console.WriteLine($"ID: {v.Id} | {v.NombreComun} ({v.NombreCientifico})");
+                Console.WriteLine($"ID: {v.Id} | {v.NombreComun} ({v.NombreCientifico})"); // Muestra por consola las variedades disponibles
 
             Console.Write("\nIngrese los IDs de las variedades a incluir (separados por coma): ");
             string? idsInput = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(idsInput))
+            if (string.IsNullOrWhiteSpace(idsInput)) // Si no se ingresaron IDs, se cancela
             {
                 Console.WriteLine("⚠ No se seleccionaron variedades.");
                 return;
@@ -47,11 +47,11 @@ namespace ColombianCoffeeApp.src.Services
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(id => int.TryParse(id.Trim(), out int val) ? val : -1)
                 .Where(id => id > 0)
-                .ToList();
+                .ToList(); // Convierte los IDs ingresados a enteros válidos
 
             var variedadesFiltradas = variedades
                 .Where(v => idsSeleccionados.Contains(v.Id))
-                .ToList();
+                .ToList(); // Filtra las variedades por los IDs seleccionados
 
             if (variedadesFiltradas.Count == 0)
             {
@@ -59,10 +59,12 @@ namespace ColombianCoffeeApp.src.Services
                 return;
             }
 
+            // Configura colores y fuentes para el PDF
             var brownColor = new DeviceRgb(101, 67, 33);
             PdfFont italicFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_OBLIQUE);
             PdfFont boldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
 
+            // Crea el archivo PDF y lo prepara para escritura
             using (var writer = new PdfWriter(rutaArchivo))
             using (var pdf = new PdfDocument(writer))
             using (var document = new Document(pdf))
@@ -81,6 +83,7 @@ namespace ColombianCoffeeApp.src.Services
                     .SetTextAlignment(TextAlignment.CENTER)
                     .SetMarginTop(15));
 
+                // Integrantes
                 document.Add(new Paragraph("Integrantes: ")
                     .SetFont(boldFont)
                     .SetFontSize(14)
@@ -92,6 +95,7 @@ namespace ColombianCoffeeApp.src.Services
                     .SetTextAlignment(TextAlignment.CENTER)
                     .SetMarginTop(10));
 
+                // Docente
                 document.Add(new Paragraph("Docente: ")
                     .SetFont(boldFont)
                     .SetFontSize(14)
@@ -103,10 +107,11 @@ namespace ColombianCoffeeApp.src.Services
                     .SetTextAlignment(TextAlignment.CENTER)
                     .SetMarginTop(10));
 
-                document.Add(new AreaBreak());
+                document.Add(new AreaBreak()); // Inserta un salto de página
 
                 foreach (var variedad in variedadesFiltradas)
                 {
+                    // Título con nombre de la variedad
                     document.Add(new Paragraph($"{variedad.NombreComun} ({variedad.NombreCientifico})")
                         .SetFont(boldFont)
                         .SetFontSize(18)
@@ -114,13 +119,13 @@ namespace ColombianCoffeeApp.src.Services
                         .SetFontColor(ColorConstants.BLACK)
                         .SetTextAlignment(TextAlignment.CENTER));
 
-                    if (!string.IsNullOrWhiteSpace(variedad.RutaImagen))
+                    if (!string.IsNullOrWhiteSpace(variedad.RutaImagen)) // Imagen de la variedad (si existe ruta válida o URL)
                     {
                         try
                         {
                             byte[] imageBytes;
 
-                            if (variedad.RutaImagen.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                            if (variedad.RutaImagen.StartsWith("http", StringComparison.OrdinalIgnoreCase)) // Si es URL, descarga la imagen con HttpClient
                             {
                                 var handler = new HttpClientHandler
                                 {
@@ -130,7 +135,7 @@ namespace ColombianCoffeeApp.src.Services
                                 httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
                                 imageBytes = httpClient.GetByteArrayAsync(variedad.RutaImagen).Result;
                             }
-                            else if (File.Exists(variedad.RutaImagen))
+                            else if (File.Exists(variedad.RutaImagen)) // Si es archivo local, lo lee en bytes
                             {
                                 imageBytes = File.ReadAllBytes(variedad.RutaImagen);
                             }
@@ -139,6 +144,7 @@ namespace ColombianCoffeeApp.src.Services
                                 throw new Exception("Ruta inválida o archivo inexistente.");
                             }
 
+                            // Crea la imagen y la agrega al documento
                             var img = new Image(ImageDataFactory.Create(imageBytes))
                                 .SetWidth(200)
                                 .SetHeight(150)
@@ -149,6 +155,7 @@ namespace ColombianCoffeeApp.src.Services
                         }
                         catch (Exception ex)
                         {
+                            // Si la imagen no carga, muestra un mensaje en consola y en el PDF
                             Console.WriteLine($"⚠ Error cargando imagen '{variedad.RutaImagen}': {ex.Message}");
                             document.Add(new Paragraph("[⛔ Imagen no disponible]")
                                 .SetTextAlignment(TextAlignment.CENTER)
@@ -161,7 +168,8 @@ namespace ColombianCoffeeApp.src.Services
                         .SetFontSize(16)
                         .SetFontColor(brownColor));
 
-                    Table tablaDatos = new Table(new float[] { 170f, 330f }).UseAllAvailableWidth();
+                    Table tablaDatos = new Table(new float[] { 170f, 330f }).UseAllAvailableWidth(); // Definición de tabla con dos columnas
+                    // Se agregan los atributos de la variedad como filas en la tabla
                     tablaDatos.AddCell(new Cell().Add(new Paragraph("Descripción").SetFont(boldFont)).SetBackgroundColor(grisClaro));
                     tablaDatos.AddCell(new Cell().Add(new Paragraph(variedad.Descripcion).SetFont(italicFont)));
                     tablaDatos.AddCell(new Cell().Add(new Paragraph("Porte").SetFont(boldFont)).SetBackgroundColor(grisClaro));
@@ -188,7 +196,8 @@ namespace ColombianCoffeeApp.src.Services
                     tablaDatos.AddCell(new Cell().Add(new Paragraph(variedad.Obtentor)));
                     tablaDatos.AddCell(new Cell().Add(new Paragraph("Familia").SetFont(boldFont)).SetBackgroundColor(grisClaro));
                     tablaDatos.AddCell(new Cell().Add(new Paragraph(variedad.Familia)));
-                    document.Add(tablaDatos);
+                    document.Add(tablaDatos); // Se agrega la tabla al documento
+                    // Línea separadora entre variedades
                     document.Add(new LineSeparator(new SolidLine())
                         .SetMargins(80, 0, 50, 0));
                 }

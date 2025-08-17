@@ -7,6 +7,6 @@ namespace ColombianCoffeeApp.src.UI
 {
     public interface IMenu
     {
-        Task MostrarAsync();
+        Task MostrarAsync(); // Método para mostrar el menú de forma asíncrona
     }
 }

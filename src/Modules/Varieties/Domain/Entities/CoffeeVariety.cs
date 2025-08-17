@@ -8,7 +8,7 @@ using ColombianCoffeeApp.src.Modules.Varieties.Domain.Enums;
 namespace ColombianCoffeeApp.src.Modules.Varieties.Domain.Entities
 {
 
-    [Table("variedad")]
+    [Table("variedad")] // Atributo que indica el nombre de la tabla en la base de datos
     public class CoffeeVariety
     {
         public int Id { get; set; }

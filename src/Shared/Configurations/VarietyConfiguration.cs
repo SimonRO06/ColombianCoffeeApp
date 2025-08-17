@@ -12,7 +12,7 @@ namespace ColombianCoffeeApp.src.Shared.Configurations
     {
         public void Configure(EntityTypeBuilder<CoffeeVariety> builder)
         {
-            builder.ToTable("variedad");
+            builder.ToTable("variedad"); // Configura el nombre de la tabla en la base de datos
 
             builder.HasKey(v => v.Id);
 
@@ -34,7 +34,7 @@ namespace ColombianCoffeeApp.src.Shared.Configurations
 
             builder.Property(v => v.Porte)
                 .IsRequired()
-                .HasConversion<string>()
+                .HasConversion<string>() // Convierte el enum a string para almacenarlo en la base de datos
                 .HasMaxLength(20);
 
             builder.Property(v => v.TamanoGrano)

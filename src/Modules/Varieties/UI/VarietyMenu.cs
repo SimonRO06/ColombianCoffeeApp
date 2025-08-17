@@ -16,9 +16,9 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
 
         public VarietyMenu()
         {
-            var db = DbContextFactory.Create();
-            var repo = new VarietyRepository(db);
-            _service = new VarietyService(repo);
+            var db = DbContextFactory.Create(); // Crea el contexto de la base de datos
+            var repo = new VarietyRepository(db); // Crea una instancia del repositorio de variedades
+            _service = new VarietyService(repo); // Crea una instancia del servicio de variedades
         }
 
         public void Mostrar()
@@ -70,9 +70,9 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
         private void ListarVariedades()
         {
             Console.Clear();
-            var variedades = _service.ObtenerTodas();
+            var variedades = _service.ObtenerTodas(); // Obtiene todas las variedades de café
             Console.WriteLine("\n📋 LISTA DE VARIEDADES:");
-            if (!variedades.Any())
+            if (!variedades.Any()) // Verifica si hay variedades registradas
             {
                 Console.WriteLine("No hay variedades registradas.");
             }
@@ -105,9 +105,11 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
             Console.Write("Ruta imagen: ");
             variedad.RutaImagen = Console.ReadLine();
 
+            // Lectura de enums con validación
             variedad.Porte = LeerEnum<PorteVariedad>("Porte (Alto/Medio/Bajo)");
             variedad.TamanoGrano = LeerEnum<TamanoGranoVariedad>("Tamaño grano (Pequeño/Medio/Grande)");
 
+            // Validación de valores numéricos
             Console.Write("Altitud óptima (número): ");
             if (!int.TryParse(Console.ReadLine(), out int altitudOptima))
             {
@@ -128,10 +130,12 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
             }
             variedad.CalidadGrano = calidadGrano;
 
+            // Lectura de resistencias
             variedad.ResistenciaRoya = LeerEnum<RoyaVariedad>("Resistencia Roya (Susceptible/Tolerante/Resistente)");
             variedad.ResistenciaAntracnosis = LeerEnum<AntracnosisVariedad>("Resistencia Antracnosis (Susceptible/Tolerante/Resistente)");
             variedad.ResistenciaNematodos = LeerEnum<NematodosVariedad>("Resistencia Nematodos (Susceptible/Tolerante/Resistente)");
 
+            // Más propiedades de la variedad
             Console.Write("Tiempo de cosecha: ");
             variedad.TiempoCosecha = Console.ReadLine();
 
@@ -156,9 +160,10 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
             Console.Write("Familia: ");
             variedad.Familia = Console.ReadLine();
 
+            // Persistencia de la nueva variedad
             try
             {
-                _service.CrearVariedad(variedad);
+                _service.CrearVariedad(variedad); // Llama al servicio para crear la nueva variedad
                 Console.Write("\n✅ Variedad creada con éxito. Presione una tecla...");
             }
             catch (ArgumentException ex)
@@ -173,14 +178,14 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
             Console.Clear();
             Console.WriteLine("=== EDITAR VARIEDAD ===\n");
             Console.Write("Ingrese el ID de la variedad a editar: ");
-            if (!int.TryParse(Console.ReadLine(), out int id))
+            if (!int.TryParse(Console.ReadLine(), out int id)) // Validación del ID ingresado
             {
                 Console.WriteLine("\n❌ ID inválido.");
                 Console.ReadKey();
                 return;
             }
 
-            var variedad = _service.ObtenerPorId(id);
+            var variedad = _service.ObtenerPorId(id); // Busca la variedad
             if (variedad == null)
             {
                 Console.WriteLine("\n⚠️ No se encontró la variedad.");
@@ -188,6 +193,7 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
                 return;
             }
 
+            // Edición interactiva de los campos
             Console.WriteLine($"Editando: {variedad.NombreComun}");
             Console.Write("Nuevo nombre común (enter para no cambiar): ");
             var nuevoValor = Console.ReadLine();

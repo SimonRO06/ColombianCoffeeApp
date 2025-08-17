@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ColombianCoffeeApp.src.Modules.Users.Domain.Entities
 {
-    [Table("usuario")]
+    [Table("usuario")] // Atributo que indica el nombre de la tabla en la base de datos
     public class User
     {
         public int Id { get; set; }
