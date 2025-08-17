@@ -87,7 +87,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.UI
             Console.Clear();
             Console.WriteLine("➕ CREAR NUEVO USUARIO");
 
-            Console.Write("Nombre de usuario: ");
+            Console.Write("\nNombre de usuario: ");
             var nombre = Console.ReadLine();
 
             Console.Write("Contraseña: ");
@@ -105,7 +105,7 @@ namespace ColombianCoffeeApp.src.Modules.Users.UI
                 try
                 {
                     await _service.CrearUsuarioAsync(nombre, contrasena, rol);
-                    Console.WriteLine("✅ Usuario creado.");
+                    Console.WriteLine("\n✅ Usuario creado.");
                 }
                 catch (Exception ex)
                 {
@@ -120,15 +120,16 @@ namespace ColombianCoffeeApp.src.Modules.Users.UI
         private async Task Eliminar()
         {
             Console.Clear();
+            Console.WriteLine("=== ELIMINAR USUARIO ===\n");
             Console.Write("Ingrese el ID del usuario a eliminar: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
                 var ok = await _service.EliminarAsync(id);
-                Console.WriteLine(ok ? "✅ Usuario eliminado." : "❌ No se encontró el usuario.");
+                Console.WriteLine(ok ? "\n✅ Usuario eliminado." : "\n❌ No se encontró el usuario.");
             }
             else
             {
-                Console.WriteLine("❌ ID inválido.");
+                Console.WriteLine("\n❌ ID inválido.");
             }
             Console.Write("\nPresione una tecla para continuar...");
             Console.ReadKey();

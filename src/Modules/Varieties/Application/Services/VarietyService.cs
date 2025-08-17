@@ -69,12 +69,9 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Application.Services
             return _repositorio.ObtenerTodas();
         }
 
-        public CoffeeVariety ObtenerPorId(int id)
+        public CoffeeVariety? ObtenerPorId(int id)
         {
-            var variedad = _repositorio.ObtenerPorId(id);
-            if (variedad == null)
-                throw new KeyNotFoundException($"No se encontró una variedad con el ID {id}");
-            return variedad;
+            return _repositorio.ObtenerPorId(id);
         }
 
         public void ActualizarVariedad(CoffeeVariety variedad)
@@ -85,12 +82,12 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Application.Services
             _repositorio.Actualizar(variedad);
         }
 
-        public void EliminarVariedad(int id)
+        public bool EliminarVariedad(int id)
         {
             if (id <= 0)
                 throw new ArgumentException("ID inválido para eliminar");
 
-            _repositorio.Eliminar(id);
+            return _repositorio.Eliminar(id);
         }
 
         public List<CoffeeVariety> FiltrarPorAtributo(string atributo, string valor)

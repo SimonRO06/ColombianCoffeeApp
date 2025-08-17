@@ -12,7 +12,7 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Application.Interfaces
         List<CoffeeVariety> ObtenerTodas();
         CoffeeVariety? ObtenerPorId(int id);
         void Actualizar(CoffeeVariety variedad);
-        void Eliminar(int id);
+        bool Eliminar(int id);
         List<CoffeeVariety> FiltrarVariedades(
             string? porte = null,
             string? tamanoGrano = null,

@@ -68,7 +68,6 @@ namespace ColombianCoffeeApp.src.Modules.Users.Application.Services
             };
 
             await _repo.CrearAsync(usuario);
-            Console.WriteLine("✅ Usuario creado correctamente.");
         }
 
         public async Task<IEnumerable<User>> ObtenerTodosAsync()

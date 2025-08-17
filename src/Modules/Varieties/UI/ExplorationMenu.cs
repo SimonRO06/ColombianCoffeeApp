@@ -90,7 +90,7 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
                 }
                 else
                 {
-                    Console.WriteLine("⚠️ No se encontró la variedad.");
+                    Console.WriteLine("\n⚠️ No se encontró la variedad.");
                 }
             }
             else
@@ -115,14 +115,14 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
 
                 if (string.IsNullOrWhiteSpace(atributo) || string.IsNullOrWhiteSpace(valor))
                 {
-                    Console.WriteLine("⚠️ El atributo y el valor no pueden estar vacíos.");
+                    Console.WriteLine("\n⚠️ El atributo y el valor no pueden estar vacíos.");
                 }
                 else
                 {
                     filtros.Add((atributo, valor));
                 }
 
-                Console.Write("¿Desea agregar otro filtro? (s/n): ");
+                Console.Write("\n¿Desea agregar otro filtro? (s/n): ");
                 string respuesta = Console.ReadLine()?.Trim().ToLower() ?? "";
                 agregarOtro = (respuesta == "s");
             }
@@ -137,7 +137,7 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
                 }
                 else
                 {
-                    Console.WriteLine("\n📋 Resultados:");
+                    Console.WriteLine("\n📋 Resultados:\n");
                     foreach (var v in resultados)
                     {
                         Console.WriteLine($"{v.Id} - {v.NombreComun} ({v.NombreCientifico})");

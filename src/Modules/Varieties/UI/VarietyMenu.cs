@@ -29,7 +29,7 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
                 Console.Clear();
                 Console.Write("""
                 ╔════════════════════════════════════════════╗
-                ║         📋 GESTIÓN DE VARIEDADES 📋       ║
+                ║         📋 GESTIÓN DE VARIEDADES 📋        ║
                 ╚════════════════════════════════════════════╝
                 ║ 1.- Listar Todas las Variedades            ║
                 ║ 2.- Añadir Nueva Variedad                  ║
@@ -90,7 +90,7 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
         private void CrearVariedad()
         {
             Console.Clear();
-            Console.WriteLine("=== CREAR NUEVA VARIEDAD ===");
+            Console.WriteLine("=== CREAR NUEVA VARIEDAD ===\n");
             var variedad = new CoffeeVariety();
 
             Console.Write("Nombre común: ");
@@ -171,11 +171,11 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
         private void EditarVariedad()
         {
             Console.Clear();
-            Console.WriteLine("=== EDITAR VARIEDAD ===");
+            Console.WriteLine("=== EDITAR VARIEDAD ===\n");
             Console.Write("Ingrese el ID de la variedad a editar: ");
             if (!int.TryParse(Console.ReadLine(), out int id))
             {
-                Console.WriteLine("❌ ID inválido.");
+                Console.WriteLine("\n❌ ID inválido.");
                 Console.ReadKey();
                 return;
             }
@@ -183,7 +183,7 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
             var variedad = _service.ObtenerPorId(id);
             if (variedad == null)
             {
-                Console.WriteLine("⚠️ No se encontró la variedad.");
+                Console.WriteLine("\n⚠️ No se encontró la variedad.");
                 Console.ReadKey();
                 return;
             }
@@ -209,20 +209,23 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.UI
         private void EliminarVariedad()
         {
             Console.Clear();
-            Console.WriteLine("=== ELIMINAR VARIEDAD ===");
+            Console.WriteLine("=== ELIMINAR VARIEDAD ===\n");
             Console.Write("Ingrese el ID de la variedad a eliminar: ");
             if (!int.TryParse(Console.ReadLine(), out int id))
             {
-                Console.WriteLine("❌ ID inválido.");
+                Console.WriteLine("\n❌ ID inválido.");
                 Console.ReadKey();
                 return;
             }
 
-            _service.EliminarVariedad(id);
-            Console.WriteLine("✅ Variedad eliminada con éxito.");
+            bool eliminado = _service.EliminarVariedad(id);
+            if (eliminado)
+                Console.WriteLine("\n✅ Variedad eliminada con éxito.");
+            else
+                Console.WriteLine("\n⚠️ No se encontró ninguna variedad con ese ID.");
+
             Console.ReadKey();
-        }
-        
+        }    
         private T LeerEnum<T>(string mensaje) where T : struct
         {
             while (true)

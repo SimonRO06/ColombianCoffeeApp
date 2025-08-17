@@ -10,9 +10,9 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Application.Interfaces
     {
         void CrearVariedad(CoffeeVariety variedad);
         List<CoffeeVariety> ObtenerTodas();
-        CoffeeVariety ObtenerPorId(int id);
+        CoffeeVariety? ObtenerPorId(int id);
         void ActualizarVariedad(CoffeeVariety variedad);
-        void EliminarVariedad(int id);
+        bool EliminarVariedad(int id);
         List<CoffeeVariety> FiltrarPorAtributo(string atributo, string valor);
         IEnumerable<CoffeeVariety> FiltrarPorAtributos(List<(string atributo, string valor)> filtros);
         List<CoffeeVariety> Sugerencias(string porte, string resistenciaRoya);

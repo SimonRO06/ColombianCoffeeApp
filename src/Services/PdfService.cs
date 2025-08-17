@@ -107,7 +107,6 @@ namespace ColombianCoffeeApp.src.Services
 
                 foreach (var variedad in variedadesFiltradas)
                 {
-                    // Título centrado
                     document.Add(new Paragraph($"{variedad.NombreComun} ({variedad.NombreCientifico})")
                         .SetFont(boldFont)
                         .SetFontSize(18)
@@ -115,7 +114,6 @@ namespace ColombianCoffeeApp.src.Services
                         .SetFontColor(ColorConstants.BLACK)
                         .SetTextAlignment(TextAlignment.CENTER));
 
-                    // Imagen
                     if (!string.IsNullOrWhiteSpace(variedad.RutaImagen))
                     {
                         try
@@ -193,13 +191,15 @@ namespace ColombianCoffeeApp.src.Services
                     document.Add(tablaDatos);
                     document.Add(new LineSeparator(new SolidLine())
                         .SetMargins(80, 0, 50, 0));
-                        }
+                }
             }
             Console.WriteLine($"✅ Catálogo PDF generado correctamente:");
             Console.Write("Enlace: ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(Path.GetFullPath(rutaArchivo));
             Console.ResetColor();
+            Console.Write("\nPresione una tecla para continuar...");
+            Console.ReadKey();
         }
     }
 }

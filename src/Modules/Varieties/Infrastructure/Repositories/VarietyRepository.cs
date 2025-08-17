@@ -39,14 +39,15 @@ namespace ColombianCoffeeApp.src.Modules.Varieties.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-        public void Eliminar(int id)
+        public bool Eliminar(int id)
         {
-            var variedad = ObtenerPorId(id);
-            if (variedad != null)
-            {
-                _context.Variedades.Remove(variedad);
-                _context.SaveChanges();
-            }
+            var variedad = _context.Variedades.FirstOrDefault(v => v.Id == id);
+            if (variedad == null)
+                return false;
+
+            _context.Variedades.Remove(variedad);
+            _context.SaveChanges();
+            return true;
         }
 
         public List<CoffeeVariety> FiltrarVariedades(
