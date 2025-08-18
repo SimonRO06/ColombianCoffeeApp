@@ -46,6 +46,14 @@ dotnet add package itext.bouncy-castle-adapter
 
 ## ⚙️ Setup de la Base de Datos 
 
+### Utilizando Migraciones:
+```
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+```
+
+### Manual:
 ```sql
 CREATE DATABASE ColombianCoffeeApp;
 
