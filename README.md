@@ -2,19 +2,9 @@
 
 ---
 
-### 🛠️ Tecnologías y Herramientas
+## Herramientas Usadas
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)  
-![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)  
-![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)  
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)  
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)  
-![Git Flow](https://img.shields.io/badge/Git%20Flow-FF7F50?style=for-the-badge&logo=git&logoColor=white)  
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)  
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)  
-![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)  
-![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)  
-![Entity Framework](https://img.shields.io/badge/Entity%20Framework-68217A?style=for-the-badge&logo=dotnet&logoColor=white)  
+![Git Flow](https://img.shields.io/badge/Git%20Flow-FE7A16?logo=git&logoColor=white&style=for-the-badge)![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-FE5196.svg?style=for-the-badge&logo=conventional-commits&logoColor=white)![.NET 9](https://img.shields.io/badge/.NET_9-512BD4.svg?style=for-the-badge&logo=.net&logoColor=white)![Entity Framework Core](https://img.shields.io/badge/Entity_Framework_Core-0078D7.svg?style=for-the-badge&logo=nuget&logoColor=white)![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
 ---
 
